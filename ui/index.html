@@ -1,0 +1,844 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Anker C200 Control</title>
+    <link rel="stylesheet" href="./styles/style.css" />
+  </head>
+  <body>
+    <div id="view-devices" class="view-container active">
+      <header class="devices-header">
+        <div class="header-brand">
+          <h1 class="app-title">Anker C200</h1>
+          <span class="badge badge-corsa">Scuderia UVC</span>
+        </div>
+        <p class="app-subtitle">
+          Gerenciador de Hardware e Dispositivos de Vídeo
+        </p>
+      </header>
+      <main class="devices-main">
+        <div class="devices-toolbar">
+          <span class="section-title">Dispositivos Detectados</span>
+          <button
+            id="btn-refresh-devices"
+            class="btn-icon btn-refresh"
+            title="Atualizar lista"
+            aria-label="Atualizar lista"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              width="14"
+              height="14"
+              stroke="currentColor"
+              stroke-width="2"
+              fill="none"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.85.83 6.72 2.24L21 8" />
+              <path d="M21 3v5h-5" />
+            </svg>
+          </button>
+        </div>
+        <div id="devices-grid" class="devices-grid"></div>
+        <div id="devices-empty" class="devices-empty">
+          <div class="empty-icon">
+            <svg
+              viewBox="0 0 24 24"
+              width="48"
+              height="48"
+              class="camera-empty-svg"
+            >
+              <path
+                fill="currentColor"
+                d="M9 3L7.17 5H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2h-3.17L15 3H9zm3 15c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"
+              />
+              <line
+                x1="3"
+                y1="21"
+                x2="21"
+                y2="3"
+                stroke="var(--bg-app)"
+                stroke-width="4"
+                stroke-linecap="round"
+              />
+              <line
+                x1="3"
+                y1="21"
+                x2="21"
+                y2="3"
+                stroke="var(--primary)"
+                stroke-width="2.5"
+                stroke-linecap="round"
+              />
+            </svg>
+          </div>
+          <p class="empty-title">Nenhuma câmera Anker compatível encontrada</p>
+          <p class="empty-desc">
+            Conecte o dispositivo via cabo USB e clique no botão acima para
+            recarregar.
+          </p>
+        </div>
+      </main>
+    </div>
+
+    <div id="view-panel" class="view-container">
+      <div class="fixed-top-container">
+        <header class="panel-header">
+          <button id="btn-back" class="btn-back">
+            <span class="back-arrow">←</span> Dispositivos
+          </button>
+          <div class="header-center">
+            <span id="panel-device-title" class="panel-device-title"
+              >Anker PowerConf C200</span
+            >
+            <span id="panel-device-path" class="panel-device-path"
+              >/dev/video0</span
+            >
+          </div>
+          <div class="camera-switch-control">
+            <span id="camera-switch-label" class="camera-switch-label active"
+              >Vídeo Ativo</span
+            >
+            <label class="switch-toggle" for="toggle-camera-switch">
+              <input type="checkbox" id="toggle-camera-switch" checked />
+              <span class="switch-slider"></span>
+            </label>
+          </div>
+        </header>
+        <section class="preview-card">
+          <div class="video-container">
+            <video id="camera-preview" autoplay playsinline muted></video>
+            <div id="camera-placeholder" class="camera-placeholder">
+              <div class="placeholder-icon-wrap">
+                <svg
+                  viewBox="0 0 24 24"
+                  width="56"
+                  height="56"
+                  class="camera-off-svg"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M9 3L7.17 5H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2h-3.17L15 3H9zm3 15c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"
+                  />
+                  <line
+                    x1="3"
+                    y1="21"
+                    x2="21"
+                    y2="3"
+                    stroke="var(--surface-1)"
+                    stroke-width="4.5"
+                    stroke-linecap="round"
+                  />
+                  <line
+                    x1="3"
+                    y1="21"
+                    x2="21"
+                    y2="3"
+                    stroke="var(--primary)"
+                    stroke-width="2.5"
+                    stroke-linecap="round"
+                  />
+                </svg>
+              </div>
+              <p>Monitor desativado</p>
+            </div>
+          </div>
+          <div class="status-bar">
+            <span class="status-dot" id="status-dot"></span>
+            <p
+              id="status"
+              class="status-message"
+              role="status"
+              aria-live="polite"
+            >
+              Pronto
+            </p>
+          </div>
+        </section>
+      </div>
+
+      <main class="controls-scroll-area">
+        <section class="controls-grid" aria-label="Controles da câmera">
+          <fieldset class="control-card">
+            <legend class="card-header">
+              <h2 class="card-title">Lente & Resolução</h2>
+            </legend>
+            <div class="control-row">
+              <span class="control-label">Campo de Visão (FOV)</span>
+              <div class="segmented-group">
+                <button
+                  class="btn-segmented"
+                  data-action="segmented"
+                  data-control="fov"
+                  data-value="narrow"
+                >
+                  65°
+                </button>
+                <button
+                  class="btn-segmented"
+                  data-action="segmented"
+                  data-control="fov"
+                  data-value="medium"
+                >
+                  78°
+                </button>
+                <button
+                  class="btn-segmented active"
+                  data-action="segmented"
+                  data-control="fov"
+                  data-value="wide"
+                >
+                  95°
+                </button>
+                <button
+                  class="btn-icon"
+                  data-action="reset"
+                  data-control="fov"
+                  aria-label="Resetar FOV"
+                >
+                  ↺
+                </button>
+              </div>
+            </div>
+            <div class="control-row">
+              <span class="control-label">Resolução do Sensor</span>
+              <div class="segmented-group">
+                <button
+                  class="btn-segmented"
+                  data-action="segmented"
+                  data-control="resolution"
+                  data-value="360p"
+                >
+                  360p
+                </button>
+                <button
+                  class="btn-segmented"
+                  data-action="segmented"
+                  data-control="resolution"
+                  data-value="720p"
+                >
+                  720p
+                </button>
+                <button
+                  class="btn-segmented active"
+                  data-action="segmented"
+                  data-control="resolution"
+                  data-value="1080p"
+                >
+                  1080p
+                </button>
+                <button
+                  class="btn-segmented"
+                  data-action="segmented"
+                  data-control="resolution"
+                  data-value="2k"
+                >
+                  2K
+                </button>
+                <button
+                  class="btn-icon"
+                  data-action="reset"
+                  data-control="resolution"
+                  aria-label="Resetar Resolução"
+                >
+                  ↺
+                </button>
+              </div>
+            </div>
+            <div class="control-row">
+              <span class="control-label">Modo do Microfone</span>
+              <div class="segmented-group">
+                <button
+                  class="btn-segmented"
+                  data-action="segmented"
+                  data-control="mic_mode"
+                  data-value="90"
+                >
+                  90° (Focado)
+                </button>
+                <button
+                  class="btn-segmented active"
+                  data-action="segmented"
+                  data-control="mic_mode"
+                  data-value="360"
+                >
+                  360° (Geral)
+                </button>
+                <button
+                  class="btn-icon"
+                  data-action="reset"
+                  data-control="mic_mode"
+                  aria-label="Resetar Microfone"
+                >
+                  ↺
+                </button>
+              </div>
+            </div>
+            <div class="control-block">
+              <span class="block-label">Pan & Tilt Digital (ePTZ)</span>
+              <div class="dpad-container">
+                <div class="dpad">
+                  <button
+                    class="dpad-btn"
+                    data-action="move"
+                    data-pan="0"
+                    data-tilt="1"
+                    aria-label="Cima"
+                  >
+                    ↑
+                  </button>
+                  <div class="dpad-row">
+                    <button
+                      class="dpad-btn"
+                      data-action="move"
+                      data-pan="-1"
+                      data-tilt="0"
+                      aria-label="Esquerda"
+                    >
+                      ←
+                    </button>
+                    <button
+                      class="dpad-btn dpad-center"
+                      data-action="reset-pan-tilt"
+                      aria-label="Centralizar"
+                    >
+                      ⦿
+                    </button>
+                    <button
+                      class="dpad-btn"
+                      data-action="move"
+                      data-pan="1"
+                      data-tilt="0"
+                      aria-label="Direita"
+                    >
+                      →
+                    </button>
+                  </div>
+                  <button
+                    class="dpad-btn"
+                    data-action="move"
+                    data-pan="0"
+                    data-tilt="-1"
+                    aria-label="Baixo"
+                  >
+                    ↓
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="control-row range-row">
+              <div class="range-header">
+                <label class="control-label" for="zoom_absolute"
+                  >Zoom Digital</label
+                >
+                <span class="range-value" id="val-zoom_absolute">100</span>
+              </div>
+              <div class="range-wrapper">
+                <input
+                  type="range"
+                  id="zoom_absolute"
+                  class="range-input"
+                  min="100"
+                  max="400"
+                  step="10"
+                  value="100"
+                  data-control="zoom_absolute"
+                />
+                <button
+                  class="btn-icon"
+                  data-action="reset"
+                  data-control="zoom_absolute"
+                  aria-label="Resetar Zoom"
+                >
+                  ↺
+                </button>
+              </div>
+            </div>
+            <div class="control-row">
+              <label class="control-label" for="hdr">HDR</label>
+              <div class="toggle-group">
+                <input
+                  type="checkbox"
+                  id="hdr"
+                  class="toggle-input"
+                  data-control="hdr"
+                />
+                <label for="hdr" class="toggle-switch"></label>
+                <button
+                  class="btn-icon"
+                  data-action="reset"
+                  data-control="hdr"
+                  aria-label="Resetar HDR"
+                >
+                  ↺
+                </button>
+              </div>
+            </div>
+            <div class="control-row">
+              <label class="control-label" for="horizontal_flip"
+                >Espelhar Imagem</label
+              >
+              <div class="toggle-group">
+                <input
+                  type="checkbox"
+                  id="horizontal_flip"
+                  class="toggle-input"
+                  data-control="horizontal_flip"
+                />
+                <label for="horizontal_flip" class="toggle-switch"></label>
+                <button
+                  class="btn-icon"
+                  data-action="reset"
+                  data-control="horizontal_flip"
+                  aria-label="Resetar Espelhamento"
+                >
+                  ↺
+                </button>
+              </div>
+            </div>
+            <div class="control-row" id="row-vertical_screen">
+              <label
+                class="control-label"
+                for="vertical_screen"
+                id="label-vertical_screen"
+                >Modo Retrato (Vertical)</label
+              >
+              <div class="toggle-group">
+                <input
+                  type="checkbox"
+                  id="vertical_screen"
+                  class="toggle-input"
+                  data-control="vertical_screen"
+                />
+                <label for="vertical_screen" class="toggle-switch"></label>
+                <button
+                  class="btn-icon"
+                  data-action="reset"
+                  data-control="vertical_screen"
+                  aria-label="Resetar Modo Vertical"
+                >
+                  ↺
+                </button>
+              </div>
+            </div>
+            <div class="control-row">
+              <span class="control-label">Anti-Flicker (Vendor)</span>
+              <div class="segmented-group">
+                <button
+                  class="btn-segmented active"
+                  data-action="segmented"
+                  data-control="anti_flicker"
+                  data-value="0"
+                >
+                  Off
+                </button>
+                <button
+                  class="btn-segmented"
+                  data-action="segmented"
+                  data-control="anti_flicker"
+                  data-value="1"
+                >
+                  50Hz
+                </button>
+                <button
+                  class="btn-segmented"
+                  data-action="segmented"
+                  data-control="anti_flicker"
+                  data-value="2"
+                >
+                  60Hz
+                </button>
+                <button
+                  class="btn-icon"
+                  data-action="reset"
+                  data-control="anti_flicker"
+                  aria-label="Resetar Anti-Flicker"
+                >
+                  ↺
+                </button>
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset class="control-card">
+            <legend class="card-header">
+              <h2 class="card-title">Processamento de Imagem</h2>
+            </legend>
+            <div class="control-row range-row">
+              <div class="range-header">
+                <label class="control-label" for="brightness">Brilho</label>
+                <span class="range-value" id="val-brightness">50</span>
+              </div>
+              <div class="range-wrapper">
+                <input
+                  type="range"
+                  id="brightness"
+                  class="range-input"
+                  min="0"
+                  max="100"
+                  value="50"
+                  data-control="brightness"
+                />
+                <button
+                  class="btn-icon"
+                  data-action="reset"
+                  data-control="brightness"
+                  aria-label="Resetar Brilho"
+                >
+                  ↺
+                </button>
+              </div>
+            </div>
+            <div class="control-row range-row">
+              <div class="range-header">
+                <label class="control-label" for="contrast">Contraste</label>
+                <span class="range-value" id="val-contrast">50</span>
+              </div>
+              <div class="range-wrapper">
+                <input
+                  type="range"
+                  id="contrast"
+                  class="range-input"
+                  min="0"
+                  max="100"
+                  value="50"
+                  data-control="contrast"
+                />
+                <button
+                  class="btn-icon"
+                  data-action="reset"
+                  data-control="contrast"
+                  aria-label="Resetar Contraste"
+                >
+                  ↺
+                </button>
+              </div>
+            </div>
+            <div class="control-row range-row">
+              <div class="range-header">
+                <label class="control-label" for="saturation">Saturação</label>
+                <span class="range-value" id="val-saturation">50</span>
+              </div>
+              <div class="range-wrapper">
+                <input
+                  type="range"
+                  id="saturation"
+                  class="range-input"
+                  min="0"
+                  max="100"
+                  value="50"
+                  data-control="saturation"
+                />
+                <button
+                  class="btn-icon"
+                  data-action="reset"
+                  data-control="saturation"
+                  aria-label="Resetar Saturação"
+                >
+                  ↺
+                </button>
+              </div>
+            </div>
+            <div class="control-row range-row">
+              <div class="range-header">
+                <label class="control-label" for="sharpness">Nitidez</label>
+                <span class="range-value" id="val-sharpness">50</span>
+              </div>
+              <div class="range-wrapper">
+                <input
+                  type="range"
+                  id="sharpness"
+                  class="range-input"
+                  min="0"
+                  max="100"
+                  value="50"
+                  data-control="sharpness"
+                />
+                <button
+                  class="btn-icon"
+                  data-action="reset"
+                  data-control="sharpness"
+                  aria-label="Resetar Nitidez"
+                >
+                  ↺
+                </button>
+              </div>
+            </div>
+            <div class="control-row range-row">
+              <div class="range-header">
+                <label class="control-label" for="gamma">Gama</label>
+                <span class="range-value" id="val-gamma">100</span>
+              </div>
+              <div class="range-wrapper">
+                <input
+                  type="range"
+                  id="gamma"
+                  class="range-input"
+                  min="100"
+                  max="300"
+                  value="100"
+                  data-control="gamma"
+                />
+                <button
+                  class="btn-icon"
+                  data-action="reset"
+                  data-control="gamma"
+                  aria-label="Resetar Gama"
+                >
+                  ↺
+                </button>
+              </div>
+            </div>
+            <div class="control-row range-row">
+              <div class="range-header">
+                <label class="control-label" for="hue">Matiz (Hue)</label>
+                <span class="range-value" id="val-hue">0</span>
+              </div>
+              <div class="range-wrapper">
+                <input
+                  type="range"
+                  id="hue"
+                  class="range-input"
+                  min="-180"
+                  max="180"
+                  value="0"
+                  data-control="hue"
+                />
+                <button
+                  class="btn-icon"
+                  data-action="reset"
+                  data-control="hue"
+                  aria-label="Resetar Matiz"
+                >
+                  ↺
+                </button>
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset class="control-card">
+            <legend class="card-header">
+              <h2 class="card-title">Exposição & Frequência</h2>
+            </legend>
+            <div class="control-row">
+              <label class="control-label" for="auto_exposure"
+                >Exposição Automática</label
+              >
+              <div class="toggle-group">
+                <input
+                  type="checkbox"
+                  id="auto_exposure"
+                  class="toggle-input"
+                  data-control="auto_exposure"
+                  checked
+                />
+                <label for="auto_exposure" class="toggle-switch"></label>
+                <button
+                  class="btn-icon"
+                  data-action="reset"
+                  data-control="auto_exposure"
+                  aria-label="Resetar Exposição Automática"
+                >
+                  ↺
+                </button>
+              </div>
+            </div>
+            <div class="control-row range-row" id="row-exposure_time_absolute">
+              <div class="range-header">
+                <label class="control-label" for="exposure_time_absolute"
+                  >Tempo de Exposição Manual</label
+                >
+                <span class="range-value" id="val-exposure_time_absolute"
+                  >156</span
+                >
+              </div>
+              <div class="range-wrapper">
+                <input
+                  type="range"
+                  id="exposure_time_absolute"
+                  class="range-input"
+                  min="1"
+                  max="2500"
+                  value="156"
+                  data-control="exposure_time_absolute"
+                />
+                <button
+                  class="btn-icon"
+                  data-action="reset"
+                  data-control="exposure_time_absolute"
+                  aria-label="Resetar Tempo de Exposição"
+                >
+                  ↺
+                </button>
+              </div>
+            </div>
+            <div class="control-row">
+              <span class="control-label">Frequência da Rede (UVC)</span>
+              <div class="segmented-group">
+                <button
+                  class="btn-segmented"
+                  data-action="segmented"
+                  data-control="power_line_frequency"
+                  data-value="0"
+                >
+                  Off
+                </button>
+                <button
+                  class="btn-segmented"
+                  data-action="segmented"
+                  data-control="power_line_frequency"
+                  data-value="1"
+                >
+                  50Hz
+                </button>
+                <button
+                  class="btn-segmented active"
+                  data-action="segmented"
+                  data-control="power_line_frequency"
+                  data-value="2"
+                >
+                  60Hz
+                </button>
+                <button
+                  class="btn-icon"
+                  data-action="reset"
+                  data-control="power_line_frequency"
+                  aria-label="Resetar Frequência da Rede"
+                >
+                  ↺
+                </button>
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset class="control-card">
+            <legend class="card-header">
+              <h2 class="card-title">Foco & Balanço de Branco</h2>
+            </legend>
+            <div class="control-row">
+              <label class="control-label" for="focus_automatic_continuous"
+                >Foco Automático</label
+              >
+              <div class="toggle-group">
+                <input
+                  type="checkbox"
+                  id="focus_automatic_continuous"
+                  class="toggle-input"
+                  data-control="focus_automatic_continuous"
+                  checked
+                />
+                <label
+                  for="focus_automatic_continuous"
+                  class="toggle-switch"
+                ></label>
+                <button
+                  class="btn-icon"
+                  data-action="reset"
+                  data-control="focus_automatic_continuous"
+                  aria-label="Resetar Foco Automático"
+                >
+                  ↺
+                </button>
+              </div>
+            </div>
+            <div class="control-row range-row" id="row-focus_absolute">
+              <div class="range-header">
+                <label class="control-label" for="focus_absolute"
+                  >Foco Manual</label
+                >
+                <span class="range-value" id="val-focus_absolute">0</span>
+              </div>
+              <div class="range-wrapper">
+                <input
+                  type="range"
+                  id="focus_absolute"
+                  class="range-input"
+                  min="0"
+                  max="255"
+                  value="0"
+                  data-control="focus_absolute"
+                />
+                <button
+                  class="btn-icon"
+                  data-action="reset"
+                  data-control="focus_absolute"
+                  aria-label="Resetar Foco Manual"
+                >
+                  ↺
+                </button>
+              </div>
+            </div>
+            <div class="control-row">
+              <label class="control-label" for="white_balance_automatic"
+                >Balanço de Branco Automático</label
+              >
+              <div class="toggle-group">
+                <input
+                  type="checkbox"
+                  id="white_balance_automatic"
+                  class="toggle-input"
+                  data-control="white_balance_automatic"
+                  checked
+                />
+                <label
+                  for="white_balance_automatic"
+                  class="toggle-switch"
+                ></label>
+                <button
+                  class="btn-icon"
+                  data-action="reset"
+                  data-control="white_balance_automatic"
+                  aria-label="Resetar Balanço de Branco"
+                >
+                  ↺
+                </button>
+              </div>
+            </div>
+            <div
+              class="control-row range-row"
+              id="row-white_balance_temperature"
+            >
+              <div class="range-header">
+                <label class="control-label" for="white_balance_temperature"
+                  >Temperatura de Cor Manual</label
+                >
+                <span class="range-value" id="val-white_balance_temperature"
+                  >4500 K</span
+                >
+              </div>
+              <div class="range-wrapper">
+                <input
+                  type="range"
+                  id="white_balance_temperature"
+                  class="range-input"
+                  min="2800"
+                  max="6500"
+                  step="50"
+                  value="4500"
+                  data-control="white_balance_temperature"
+                />
+                <button
+                  class="btn-icon"
+                  data-action="reset"
+                  data-control="white_balance_temperature"
+                  aria-label="Resetar Temperatura da Cor"
+                >
+                  ↺
+                </button>
+              </div>
+            </div>
+          </fieldset>
+          <button class="btn btn-reset-all" data-action="reset-all">
+            Restaurar Todos os Padrões
+          </button>
+        </section>
+        <footer class="app-footer">
+          <span>Anker C200 Control • Rosso Corsa Edition</span>
+        </footer>
+      </main>
+    </div>
+    <script src="./js/script.js"></script>
+  </body>
+</html>

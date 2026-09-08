@@ -1,0 +1,7 @@
+{
+  "$schema": "../../.target/gen/schemas/desktop-schema.json",
+  "identifier": "default",
+  "description": "Permissões IPC para a janela principal",
+  "windows": ["main"],
+  "permissions": ["core:default"]
+}
