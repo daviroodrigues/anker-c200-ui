@@ -107,6 +107,7 @@
             </label>
           </div>
         </header>
+
         <section class="preview-card">
           <div class="video-container">
             <video id="camera-preview" autoplay playsinline muted></video>
@@ -157,688 +158,1045 @@
             </p>
           </div>
         </section>
+
+        <nav class="tabs-nav" aria-label="Abas de configuração">
+          <button class="tab-btn active" data-tab="tab-video">
+            <svg
+              viewBox="0 0 24 24"
+              width="15"
+              height="15"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path d="m23 7-7 5 7 5V7z" />
+              <rect x="1" y="5" width="15" height="14" rx="2" ry="2" />
+            </svg>
+            Vídeo
+          </button>
+          <button class="tab-btn" data-tab="tab-image">
+            <svg
+              viewBox="0 0 24 24"
+              width="15"
+              height="15"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <circle cx="12" cy="12" r="10" />
+              <path d="M12 2a10 10 0 0 1 0 20z" />
+            </svg>
+            Imagem
+          </button>
+          <button class="tab-btn" data-tab="tab-audio">
+            <svg
+              viewBox="0 0 24 24"
+              width="15"
+              height="15"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z" />
+              <path d="M19 10v2a7 7 0 0 1-14 0v-2" />
+              <line x1="12" y1="19" x2="12" y2="23" />
+              <line x1="8" y1="23" x2="16" y2="23" />
+            </svg>
+            Áudio
+          </button>
+        </nav>
       </div>
 
       <main class="controls-scroll-area">
-        <section class="controls-grid" aria-label="Controles da câmera">
-          <fieldset class="control-card">
-            <legend class="card-header">
-              <h2 class="card-title">Lente & Resolução</h2>
-            </legend>
-            <div class="control-row">
-              <span class="control-label">Campo de Visão (FOV)</span>
-              <div class="segmented-group">
-                <button
-                  class="btn-segmented"
-                  data-action="segmented"
-                  data-control="fov"
-                  data-value="narrow"
-                >
-                  65°
-                </button>
-                <button
-                  class="btn-segmented"
-                  data-action="segmented"
-                  data-control="fov"
-                  data-value="medium"
-                >
-                  78°
-                </button>
-                <button
-                  class="btn-segmented active"
-                  data-action="segmented"
-                  data-control="fov"
-                  data-value="wide"
-                >
-                  95°
-                </button>
-                <button
-                  class="btn-icon"
-                  data-action="reset"
-                  data-control="fov"
-                  aria-label="Resetar FOV"
-                >
-                  ↺
-                </button>
-              </div>
-            </div>
-            <div class="control-row">
-              <span class="control-label">Resolução do Sensor</span>
-              <div class="segmented-group">
-                <button
-                  class="btn-segmented"
-                  data-action="segmented"
-                  data-control="resolution"
-                  data-value="360p"
-                >
-                  360p
-                </button>
-                <button
-                  class="btn-segmented"
-                  data-action="segmented"
-                  data-control="resolution"
-                  data-value="720p"
-                >
-                  720p
-                </button>
-                <button
-                  class="btn-segmented active"
-                  data-action="segmented"
-                  data-control="resolution"
-                  data-value="1080p"
-                >
-                  1080p
-                </button>
-                <button
-                  class="btn-segmented"
-                  data-action="segmented"
-                  data-control="resolution"
-                  data-value="2k"
-                >
-                  2K
-                </button>
-                <button
-                  class="btn-icon"
-                  data-action="reset"
-                  data-control="resolution"
-                  aria-label="Resetar Resolução"
-                >
-                  ↺
-                </button>
-              </div>
-            </div>
-            <div class="control-row">
-              <span class="control-label">Modo do Microfone</span>
-              <div class="segmented-group">
-                <button
-                  class="btn-segmented"
-                  data-action="segmented"
-                  data-control="mic_mode"
-                  data-value="90"
-                >
-                  90° (Focado)
-                </button>
-                <button
-                  class="btn-segmented active"
-                  data-action="segmented"
-                  data-control="mic_mode"
-                  data-value="360"
-                >
-                  360° (Geral)
-                </button>
-                <button
-                  class="btn-icon"
-                  data-action="reset"
-                  data-control="mic_mode"
-                  aria-label="Resetar Microfone"
-                >
-                  ↺
-                </button>
-              </div>
-            </div>
-            <div class="control-block">
-              <span class="block-label">Pan & Tilt Digital (ePTZ)</span>
-              <div class="dpad-container">
-                <div class="dpad">
-                  <button
-                    class="dpad-btn"
-                    data-action="move"
-                    data-pan="0"
-                    data-tilt="1"
-                    aria-label="Cima"
-                  >
-                    ↑
-                  </button>
-                  <div class="dpad-row">
+        <section class="tab-content-area" aria-label="Controles da câmera">
+          <div id="tab-video" class="tab-pane active">
+            <div class="controls-grid">
+              <div class="control-card">
+                <div class="card-header">
+                  <h2 class="card-title">Sensor & Óptica</h2>
+                </div>
+                <div class="control-row">
+                  <span class="control-label">Resolução</span>
+                  <div class="segmented-group">
                     <button
-                      class="dpad-btn"
-                      data-action="move"
-                      data-pan="-1"
-                      data-tilt="0"
-                      aria-label="Esquerda"
+                      class="btn-segmented"
+                      data-action="segmented"
+                      data-control="resolution"
+                      data-value="360p"
                     >
-                      ←
+                      360p
                     </button>
                     <button
-                      class="dpad-btn dpad-center"
-                      data-action="reset-pan-tilt"
-                      aria-label="Centralizar"
+                      class="btn-segmented"
+                      data-action="segmented"
+                      data-control="resolution"
+                      data-value="720p"
                     >
-                      ⦿
+                      720p
                     </button>
                     <button
-                      class="dpad-btn"
-                      data-action="move"
-                      data-pan="1"
-                      data-tilt="0"
-                      aria-label="Direita"
+                      class="btn-segmented active"
+                      data-action="segmented"
+                      data-control="resolution"
+                      data-value="1080p"
                     >
-                      →
+                      1080p
+                    </button>
+                    <button
+                      class="btn-segmented"
+                      data-action="segmented"
+                      data-control="resolution"
+                      data-value="2k"
+                    >
+                      2K
+                    </button>
+                    <button
+                      class="btn-icon"
+                      data-action="reset"
+                      data-control="resolution"
+                      aria-label="Resetar Resolução"
+                    >
+                      <svg
+                        viewBox="0 0 24 24"
+                        width="12"
+                        height="12"
+                        stroke="currentColor"
+                        stroke-width="2.5"
+                        fill="none"
+                      >
+                        <path
+                          d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"
+                        />
+                        <path d="M3 3v5h5" />
+                      </svg>
                     </button>
                   </div>
-                  <button
-                    class="dpad-btn"
-                    data-action="move"
-                    data-pan="0"
-                    data-tilt="-1"
-                    aria-label="Baixo"
+                </div>
+
+                <div class="control-row">
+                  <span class="control-label">Campo de Visão (FOV)</span>
+                  <div class="segmented-group">
+                    <button
+                      class="btn-segmented"
+                      data-action="segmented"
+                      data-control="fov"
+                      data-value="narrow"
+                    >
+                      65°
+                    </button>
+                    <button
+                      class="btn-segmented"
+                      data-action="segmented"
+                      data-control="fov"
+                      data-value="medium"
+                    >
+                      78°
+                    </button>
+                    <button
+                      class="btn-segmented active"
+                      data-action="segmented"
+                      data-control="fov"
+                      data-value="wide"
+                    >
+                      95°
+                    </button>
+                    <button
+                      class="btn-icon"
+                      data-action="reset"
+                      data-control="fov"
+                      aria-label="Resetar FOV"
+                    >
+                      <svg
+                        viewBox="0 0 24 24"
+                        width="12"
+                        height="12"
+                        stroke="currentColor"
+                        stroke-width="2.5"
+                        fill="none"
+                      >
+                        <path
+                          d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"
+                        />
+                        <path d="M3 3v5h5" />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="control-row range-row">
+                  <div class="range-header">
+                    <label class="control-label" for="zoom_absolute"
+                      >Zoom Digital</label
+                    >
+                    <span class="range-value" id="val-zoom_absolute">100</span>
+                  </div>
+                  <div class="range-wrapper">
+                    <input
+                      type="range"
+                      id="zoom_absolute"
+                      class="range-input"
+                      min="100"
+                      max="400"
+                      step="10"
+                      value="100"
+                      data-control="zoom_absolute"
+                    />
+                    <button
+                      class="btn-icon"
+                      data-action="reset"
+                      data-control="zoom_absolute"
+                      aria-label="Resetar Zoom"
+                    >
+                      <svg
+                        viewBox="0 0 24 24"
+                        width="12"
+                        height="12"
+                        stroke="currentColor"
+                        stroke-width="2.5"
+                        fill="none"
+                      >
+                        <path
+                          d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"
+                        />
+                        <path d="M3 3v5h5" />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="control-row">
+                  <label class="control-label" for="horizontal_flip"
+                    >Espelhar Imagem</label
                   >
-                    ↓
-                  </button>
+                  <div class="toggle-group">
+                    <input
+                      type="checkbox"
+                      id="horizontal_flip"
+                      class="toggle-input"
+                      data-control="horizontal_flip"
+                    />
+                    <label for="horizontal_flip" class="toggle-switch"></label>
+                    <button
+                      class="btn-icon"
+                      data-action="reset"
+                      data-control="horizontal_flip"
+                      aria-label="Resetar Espelhamento"
+                    >
+                      <svg
+                        viewBox="0 0 24 24"
+                        width="12"
+                        height="12"
+                        stroke="currentColor"
+                        stroke-width="2.5"
+                        fill="none"
+                      >
+                        <path
+                          d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"
+                        />
+                        <path d="M3 3v5h5" />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="control-card">
+                <div class="card-header">
+                  <h2 class="card-title">Enquadramento Digital (ePTZ)</h2>
+                </div>
+                <div class="control-block">
+                  <span class="block-label">Pan & Tilt Digital</span>
+                  <div class="dpad-container">
+                    <div class="dpad">
+                      <button
+                        class="dpad-btn"
+                        data-action="move"
+                        data-pan="0"
+                        data-tilt="1"
+                        aria-label="Cima"
+                      >
+                        ▲
+                      </button>
+                      <div class="dpad-row">
+                        <button
+                          class="dpad-btn"
+                          data-action="move"
+                          data-pan="-1"
+                          data-tilt="0"
+                          aria-label="Esquerda"
+                        >
+                          ◀
+                        </button>
+                        <button
+                          class="dpad-btn dpad-center"
+                          data-action="reset-pan-tilt"
+                          aria-label="Centralizar"
+                        >
+                          ●
+                        </button>
+                        <button
+                          class="dpad-btn"
+                          data-action="move"
+                          data-pan="1"
+                          data-tilt="0"
+                          aria-label="Direita"
+                        >
+                          ▶
+                        </button>
+                      </div>
+                      <button
+                        class="dpad-btn"
+                        data-action="move"
+                        data-pan="0"
+                        data-tilt="-1"
+                        aria-label="Baixo"
+                      >
+                        ▼
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="card-divider"></div>
+
+                <div class="control-row">
+                  <span class="control-label">Frequência da Rede (UVC)</span>
+                  <div class="segmented-group">
+                    <button
+                      class="btn-segmented"
+                      data-action="segmented"
+                      data-control="power_line_frequency"
+                      data-value="0"
+                    >
+                      Off
+                    </button>
+                    <button
+                      class="btn-segmented"
+                      data-action="segmented"
+                      data-control="power_line_frequency"
+                      data-value="1"
+                    >
+                      50Hz
+                    </button>
+                    <button
+                      class="btn-segmented active"
+                      data-action="segmented"
+                      data-control="power_line_frequency"
+                      data-value="2"
+                    >
+                      60Hz
+                    </button>
+                    <button
+                      class="btn-icon"
+                      data-action="reset"
+                      data-control="power_line_frequency"
+                      aria-label="Resetar Frequência da Rede"
+                    >
+                      <svg
+                        viewBox="0 0 24 24"
+                        width="12"
+                        height="12"
+                        stroke="currentColor"
+                        stroke-width="2.5"
+                        fill="none"
+                      >
+                        <path
+                          d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"
+                        />
+                        <path d="M3 3v5h5" />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="control-row">
+                  <span class="control-label">Anti-Flicker (Vendor)</span>
+                  <div class="segmented-group">
+                    <button
+                      class="btn-segmented active"
+                      data-action="segmented"
+                      data-control="anti_flicker"
+                      data-value="0"
+                    >
+                      Off
+                    </button>
+                    <button
+                      class="btn-segmented"
+                      data-action="segmented"
+                      data-control="anti_flicker"
+                      data-value="1"
+                    >
+                      50Hz
+                    </button>
+                    <button
+                      class="btn-segmented"
+                      data-action="segmented"
+                      data-control="anti_flicker"
+                      data-value="2"
+                    >
+                      60Hz
+                    </button>
+                    <button
+                      class="btn-icon"
+                      data-action="reset"
+                      data-control="anti_flicker"
+                      aria-label="Resetar Anti-Flicker"
+                    >
+                      <svg
+                        viewBox="0 0 24 24"
+                        width="12"
+                        height="12"
+                        stroke="currentColor"
+                        stroke-width="2.5"
+                        fill="none"
+                      >
+                        <path
+                          d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"
+                        />
+                        <path d="M3 3v5h5" />
+                      </svg>
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
-            <div class="control-row range-row">
-              <div class="range-header">
-                <label class="control-label" for="zoom_absolute"
-                  >Zoom Digital</label
-                >
-                <span class="range-value" id="val-zoom_absolute">100</span>
-              </div>
-              <div class="range-wrapper">
-                <input
-                  type="range"
-                  id="zoom_absolute"
-                  class="range-input"
-                  min="100"
-                  max="400"
-                  step="10"
-                  value="100"
-                  data-control="zoom_absolute"
-                />
-                <button
-                  class="btn-icon"
-                  data-action="reset"
-                  data-control="zoom_absolute"
-                  aria-label="Resetar Zoom"
-                >
-                  ↺
-                </button>
-              </div>
-            </div>
-            <div class="control-row">
-              <label class="control-label" for="hdr">HDR</label>
-              <div class="toggle-group">
-                <input
-                  type="checkbox"
-                  id="hdr"
-                  class="toggle-input"
-                  data-control="hdr"
-                />
-                <label for="hdr" class="toggle-switch"></label>
-                <button
-                  class="btn-icon"
-                  data-action="reset"
-                  data-control="hdr"
-                  aria-label="Resetar HDR"
-                >
-                  ↺
-                </button>
-              </div>
-            </div>
-            <div class="control-row">
-              <label class="control-label" for="horizontal_flip"
-                >Espelhar Imagem</label
-              >
-              <div class="toggle-group">
-                <input
-                  type="checkbox"
-                  id="horizontal_flip"
-                  class="toggle-input"
-                  data-control="horizontal_flip"
-                />
-                <label for="horizontal_flip" class="toggle-switch"></label>
-                <button
-                  class="btn-icon"
-                  data-action="reset"
-                  data-control="horizontal_flip"
-                  aria-label="Resetar Espelhamento"
-                >
-                  ↺
-                </button>
-              </div>
-            </div>
-            <div class="control-row" id="row-vertical_screen">
-              <label
-                class="control-label"
-                for="vertical_screen"
-                id="label-vertical_screen"
-                >Modo Retrato (Vertical)</label
-              >
-              <div class="toggle-group">
-                <input
-                  type="checkbox"
-                  id="vertical_screen"
-                  class="toggle-input"
-                  data-control="vertical_screen"
-                />
-                <label for="vertical_screen" class="toggle-switch"></label>
-                <button
-                  class="btn-icon"
-                  data-action="reset"
-                  data-control="vertical_screen"
-                  aria-label="Resetar Modo Vertical"
-                >
-                  ↺
-                </button>
-              </div>
-            </div>
-            <div class="control-row">
-              <span class="control-label">Anti-Flicker (Vendor)</span>
-              <div class="segmented-group">
-                <button
-                  class="btn-segmented active"
-                  data-action="segmented"
-                  data-control="anti_flicker"
-                  data-value="0"
-                >
-                  Off
-                </button>
-                <button
-                  class="btn-segmented"
-                  data-action="segmented"
-                  data-control="anti_flicker"
-                  data-value="1"
-                >
-                  50Hz
-                </button>
-                <button
-                  class="btn-segmented"
-                  data-action="segmented"
-                  data-control="anti_flicker"
-                  data-value="2"
-                >
-                  60Hz
-                </button>
-                <button
-                  class="btn-icon"
-                  data-action="reset"
-                  data-control="anti_flicker"
-                  aria-label="Resetar Anti-Flicker"
-                >
-                  ↺
-                </button>
-              </div>
-            </div>
-          </fieldset>
+          </div>
 
-          <fieldset class="control-card">
-            <legend class="card-header">
-              <h2 class="card-title">Processamento de Imagem</h2>
-            </legend>
-            <div class="control-row range-row">
-              <div class="range-header">
-                <label class="control-label" for="brightness">Brilho</label>
-                <span class="range-value" id="val-brightness">50</span>
-              </div>
-              <div class="range-wrapper">
-                <input
-                  type="range"
-                  id="brightness"
-                  class="range-input"
-                  min="0"
-                  max="100"
-                  value="50"
-                  data-control="brightness"
-                />
-                <button
-                  class="btn-icon"
-                  data-action="reset"
-                  data-control="brightness"
-                  aria-label="Resetar Brilho"
-                >
-                  ↺
-                </button>
-              </div>
-            </div>
-            <div class="control-row range-row">
-              <div class="range-header">
-                <label class="control-label" for="contrast">Contraste</label>
-                <span class="range-value" id="val-contrast">50</span>
-              </div>
-              <div class="range-wrapper">
-                <input
-                  type="range"
-                  id="contrast"
-                  class="range-input"
-                  min="0"
-                  max="100"
-                  value="50"
-                  data-control="contrast"
-                />
-                <button
-                  class="btn-icon"
-                  data-action="reset"
-                  data-control="contrast"
-                  aria-label="Resetar Contraste"
-                >
-                  ↺
-                </button>
-              </div>
-            </div>
-            <div class="control-row range-row">
-              <div class="range-header">
-                <label class="control-label" for="saturation">Saturação</label>
-                <span class="range-value" id="val-saturation">50</span>
-              </div>
-              <div class="range-wrapper">
-                <input
-                  type="range"
-                  id="saturation"
-                  class="range-input"
-                  min="0"
-                  max="100"
-                  value="50"
-                  data-control="saturation"
-                />
-                <button
-                  class="btn-icon"
-                  data-action="reset"
-                  data-control="saturation"
-                  aria-label="Resetar Saturação"
-                >
-                  ↺
-                </button>
-              </div>
-            </div>
-            <div class="control-row range-row">
-              <div class="range-header">
-                <label class="control-label" for="sharpness">Nitidez</label>
-                <span class="range-value" id="val-sharpness">50</span>
-              </div>
-              <div class="range-wrapper">
-                <input
-                  type="range"
-                  id="sharpness"
-                  class="range-input"
-                  min="0"
-                  max="100"
-                  value="50"
-                  data-control="sharpness"
-                />
-                <button
-                  class="btn-icon"
-                  data-action="reset"
-                  data-control="sharpness"
-                  aria-label="Resetar Nitidez"
-                >
-                  ↺
-                </button>
-              </div>
-            </div>
-            <div class="control-row range-row">
-              <div class="range-header">
-                <label class="control-label" for="gamma">Gama</label>
-                <span class="range-value" id="val-gamma">100</span>
-              </div>
-              <div class="range-wrapper">
-                <input
-                  type="range"
-                  id="gamma"
-                  class="range-input"
-                  min="100"
-                  max="300"
-                  value="100"
-                  data-control="gamma"
-                />
-                <button
-                  class="btn-icon"
-                  data-action="reset"
-                  data-control="gamma"
-                  aria-label="Resetar Gama"
-                >
-                  ↺
-                </button>
-              </div>
-            </div>
-            <div class="control-row range-row">
-              <div class="range-header">
-                <label class="control-label" for="hue">Matiz (Hue)</label>
-                <span class="range-value" id="val-hue">0</span>
-              </div>
-              <div class="range-wrapper">
-                <input
-                  type="range"
-                  id="hue"
-                  class="range-input"
-                  min="-180"
-                  max="180"
-                  value="0"
-                  data-control="hue"
-                />
-                <button
-                  class="btn-icon"
-                  data-action="reset"
-                  data-control="hue"
-                  aria-label="Resetar Matiz"
-                >
-                  ↺
-                </button>
-              </div>
-            </div>
-          </fieldset>
+          <div id="tab-image" class="tab-pane">
+            <div class="controls-grid">
+              <div class="control-card">
+                <div class="card-header">
+                  <h2 class="card-title">Ajustes & Calibração</h2>
+                </div>
+                <div class="control-row highlight-row">
+                  <div class="control-label-wrap">
+                    <label class="control-label" for="hdr"
+                      >Otimizar Brilho</label
+                    >
+                    <span class="control-hint"
+                      >Compensação inteligente de contraste da Anker</span
+                    >
+                  </div>
+                  <div class="toggle-group">
+                    <input
+                      type="checkbox"
+                      id="hdr"
+                      class="toggle-input"
+                      data-control="hdr"
+                    />
+                    <label for="hdr" class="toggle-switch"></label>
+                    <button
+                      class="btn-icon"
+                      data-action="reset"
+                      data-control="hdr"
+                      aria-label="Resetar Otimizar Brilho"
+                    >
+                      <svg
+                        viewBox="0 0 24 24"
+                        width="12"
+                        height="12"
+                        stroke="currentColor"
+                        stroke-width="2.5"
+                        fill="none"
+                      >
+                        <path
+                          d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"
+                        />
+                        <path d="M3 3v5h5" />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
 
-          <fieldset class="control-card">
-            <legend class="card-header">
-              <h2 class="card-title">Exposição & Frequência</h2>
-            </legend>
-            <div class="control-row">
-              <label class="control-label" for="auto_exposure"
-                >Exposição Automática</label
-              >
-              <div class="toggle-group">
-                <input
-                  type="checkbox"
-                  id="auto_exposure"
-                  class="toggle-input"
-                  data-control="auto_exposure"
-                  checked
-                />
-                <label for="auto_exposure" class="toggle-switch"></label>
-                <button
-                  class="btn-icon"
-                  data-action="reset"
-                  data-control="auto_exposure"
-                  aria-label="Resetar Exposição Automática"
-                >
-                  ↺
-                </button>
-              </div>
-            </div>
-            <div class="control-row range-row" id="row-exposure_time_absolute">
-              <div class="range-header">
-                <label class="control-label" for="exposure_time_absolute"
-                  >Tempo de Exposição Manual</label
-                >
-                <span class="range-value" id="val-exposure_time_absolute"
-                  >156</span
-                >
-              </div>
-              <div class="range-wrapper">
-                <input
-                  type="range"
-                  id="exposure_time_absolute"
-                  class="range-input"
-                  min="1"
-                  max="2500"
-                  value="156"
-                  data-control="exposure_time_absolute"
-                />
-                <button
-                  class="btn-icon"
-                  data-action="reset"
-                  data-control="exposure_time_absolute"
-                  aria-label="Resetar Tempo de Exposição"
-                >
-                  ↺
-                </button>
-              </div>
-            </div>
-            <div class="control-row">
-              <span class="control-label">Frequência da Rede (UVC)</span>
-              <div class="segmented-group">
-                <button
-                  class="btn-segmented"
-                  data-action="segmented"
-                  data-control="power_line_frequency"
-                  data-value="0"
-                >
-                  Off
-                </button>
-                <button
-                  class="btn-segmented"
-                  data-action="segmented"
-                  data-control="power_line_frequency"
-                  data-value="1"
-                >
-                  50Hz
-                </button>
-                <button
-                  class="btn-segmented active"
-                  data-action="segmented"
-                  data-control="power_line_frequency"
-                  data-value="2"
-                >
-                  60Hz
-                </button>
-                <button
-                  class="btn-icon"
-                  data-action="reset"
-                  data-control="power_line_frequency"
-                  aria-label="Resetar Frequência da Rede"
-                >
-                  ↺
-                </button>
-              </div>
-            </div>
-          </fieldset>
+                <div class="control-row range-row">
+                  <div class="range-header">
+                    <label class="control-label" for="brightness">Brilho</label>
+                    <span class="range-value" id="val-brightness">50</span>
+                  </div>
+                  <div class="range-wrapper">
+                    <input
+                      type="range"
+                      id="brightness"
+                      class="range-input"
+                      min="0"
+                      max="100"
+                      value="50"
+                      data-control="brightness"
+                    />
+                    <button
+                      class="btn-icon"
+                      data-action="reset"
+                      data-control="brightness"
+                      aria-label="Resetar Brilho"
+                    >
+                      <svg
+                        viewBox="0 0 24 24"
+                        width="12"
+                        height="12"
+                        stroke="currentColor"
+                        stroke-width="2.5"
+                        fill="none"
+                      >
+                        <path
+                          d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"
+                        />
+                        <path d="M3 3v5h5" />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
 
-          <fieldset class="control-card">
-            <legend class="card-header">
-              <h2 class="card-title">Foco & Balanço de Branco</h2>
-            </legend>
-            <div class="control-row">
-              <label class="control-label" for="focus_automatic_continuous"
-                >Foco Automático</label
-              >
-              <div class="toggle-group">
-                <input
-                  type="checkbox"
-                  id="focus_automatic_continuous"
-                  class="toggle-input"
-                  data-control="focus_automatic_continuous"
-                  checked
-                />
-                <label
-                  for="focus_automatic_continuous"
-                  class="toggle-switch"
-                ></label>
-                <button
-                  class="btn-icon"
-                  data-action="reset"
-                  data-control="focus_automatic_continuous"
-                  aria-label="Resetar Foco Automático"
+                <div class="control-row range-row">
+                  <div class="range-header">
+                    <label class="control-label" for="contrast"
+                      >Contraste</label
+                    >
+                    <span class="range-value" id="val-contrast">50</span>
+                  </div>
+                  <div class="range-wrapper">
+                    <input
+                      type="range"
+                      id="contrast"
+                      class="range-input"
+                      min="0"
+                      max="100"
+                      value="50"
+                      data-control="contrast"
+                    />
+                    <button
+                      class="btn-icon"
+                      data-action="reset"
+                      data-control="contrast"
+                      aria-label="Resetar Contraste"
+                    >
+                      <svg
+                        viewBox="0 0 24 24"
+                        width="12"
+                        height="12"
+                        stroke="currentColor"
+                        stroke-width="2.5"
+                        fill="none"
+                      >
+                        <path
+                          d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"
+                        />
+                        <path d="M3 3v5h5" />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="control-row range-row">
+                  <div class="range-header">
+                    <label class="control-label" for="saturation"
+                      >Saturação</label
+                    >
+                    <span class="range-value" id="val-saturation">50</span>
+                  </div>
+                  <div class="range-wrapper">
+                    <input
+                      type="range"
+                      id="saturation"
+                      class="range-input"
+                      min="0"
+                      max="100"
+                      value="50"
+                      data-control="saturation"
+                    />
+                    <button
+                      class="btn-icon"
+                      data-action="reset"
+                      data-control="saturation"
+                      aria-label="Resetar Saturação"
+                    >
+                      <svg
+                        viewBox="0 0 24 24"
+                        width="12"
+                        height="12"
+                        stroke="currentColor"
+                        stroke-width="2.5"
+                        fill="none"
+                      >
+                        <path
+                          d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"
+                        />
+                        <path d="M3 3v5h5" />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="control-row range-row">
+                  <div class="range-header">
+                    <label class="control-label" for="sharpness">Nitidez</label>
+                    <span class="range-value" id="val-sharpness">50</span>
+                  </div>
+                  <div class="range-wrapper">
+                    <input
+                      type="range"
+                      id="sharpness"
+                      class="range-input"
+                      min="0"
+                      max="100"
+                      value="50"
+                      data-control="sharpness"
+                    />
+                    <button
+                      class="btn-icon"
+                      data-action="reset"
+                      data-control="sharpness"
+                      aria-label="Resetar Nitidez"
+                    >
+                      <svg
+                        viewBox="0 0 24 24"
+                        width="12"
+                        height="12"
+                        stroke="currentColor"
+                        stroke-width="2.5"
+                        fill="none"
+                      >
+                        <path
+                          d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"
+                        />
+                        <path d="M3 3v5h5" />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="control-row range-row">
+                  <div class="range-header">
+                    <label class="control-label" for="gamma">Gama</label>
+                    <span class="range-value" id="val-gamma">100</span>
+                  </div>
+                  <div class="range-wrapper">
+                    <input
+                      type="range"
+                      id="gamma"
+                      class="range-input"
+                      min="100"
+                      max="300"
+                      value="100"
+                      data-control="gamma"
+                    />
+                    <button
+                      class="btn-icon"
+                      data-action="reset"
+                      data-control="gamma"
+                      aria-label="Resetar Gama"
+                    >
+                      <svg
+                        viewBox="0 0 24 24"
+                        width="12"
+                        height="12"
+                        stroke="currentColor"
+                        stroke-width="2.5"
+                        fill="none"
+                      >
+                        <path
+                          d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"
+                        />
+                        <path d="M3 3v5h5" />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="control-row range-row">
+                  <div class="range-header">
+                    <label class="control-label" for="hue">Matiz (Hue)</label>
+                    <span class="range-value" id="val-hue">0</span>
+                  </div>
+                  <div class="range-wrapper">
+                    <input
+                      type="range"
+                      id="hue"
+                      class="range-input"
+                      min="-180"
+                      max="180"
+                      value="0"
+                      data-control="hue"
+                    />
+                    <button
+                      class="btn-icon"
+                      data-action="reset"
+                      data-control="hue"
+                      aria-label="Resetar Matiz"
+                    >
+                      <svg
+                        viewBox="0 0 24 24"
+                        width="12"
+                        height="12"
+                        stroke="currentColor"
+                        stroke-width="2.5"
+                        fill="none"
+                      >
+                        <path
+                          d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"
+                        />
+                        <path d="M3 3v5h5" />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="control-card">
+                <div class="card-header">
+                  <h2 class="card-title">Exposição, Foco & Balanço</h2>
+                </div>
+                <div class="control-row">
+                  <label class="control-label" for="auto_exposure"
+                    >Exposição Automática</label
+                  >
+                  <div class="toggle-group">
+                    <input
+                      type="checkbox"
+                      id="auto_exposure"
+                      class="toggle-input"
+                      data-control="auto_exposure"
+                      checked
+                    />
+                    <label for="auto_exposure" class="toggle-switch"></label>
+                    <button
+                      class="btn-icon"
+                      data-action="reset"
+                      data-control="auto_exposure"
+                      aria-label="Resetar Exposição Automática"
+                    >
+                      <svg
+                        viewBox="0 0 24 24"
+                        width="12"
+                        height="12"
+                        stroke="currentColor"
+                        stroke-width="2.5"
+                        fill="none"
+                      >
+                        <path
+                          d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"
+                        />
+                        <path d="M3 3v5h5" />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+
+                <div
+                  class="control-row range-row"
+                  id="row-exposure_time_absolute"
                 >
-                  ↺
-                </button>
+                  <div class="range-header">
+                    <label class="control-label" for="exposure_time_absolute"
+                      >Tempo de Exposição Manual</label
+                    >
+                    <span class="range-value" id="val-exposure_time_absolute"
+                      >156</span
+                    >
+                  </div>
+                  <div class="range-wrapper">
+                    <input
+                      type="range"
+                      id="exposure_time_absolute"
+                      class="range-input"
+                      min="1"
+                      max="2500"
+                      value="156"
+                      data-control="exposure_time_absolute"
+                    />
+                    <button
+                      class="btn-icon"
+                      data-action="reset"
+                      data-control="exposure_time_absolute"
+                      aria-label="Resetar Tempo de Exposição"
+                    >
+                      <svg
+                        viewBox="0 0 24 24"
+                        width="12"
+                        height="12"
+                        stroke="currentColor"
+                        stroke-width="2.5"
+                        fill="none"
+                      >
+                        <path
+                          d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"
+                        />
+                        <path d="M3 3v5h5" />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="card-divider"></div>
+
+                <div class="control-row">
+                  <label class="control-label" for="focus_automatic_continuous"
+                    >Foco Automático</label
+                  >
+                  <div class="toggle-group">
+                    <input
+                      type="checkbox"
+                      id="focus_automatic_continuous"
+                      class="toggle-input"
+                      data-control="focus_automatic_continuous"
+                      checked
+                    />
+                    <label
+                      for="focus_automatic_continuous"
+                      class="toggle-switch"
+                    ></label>
+                    <button
+                      class="btn-icon"
+                      data-action="reset"
+                      data-control="focus_automatic_continuous"
+                      aria-label="Resetar Foco Automático"
+                    >
+                      <svg
+                        viewBox="0 0 24 24"
+                        width="12"
+                        height="12"
+                        stroke="currentColor"
+                        stroke-width="2.5"
+                        fill="none"
+                      >
+                        <path
+                          d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"
+                        />
+                        <path d="M3 3v5h5" />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="control-row range-row" id="row-focus_absolute">
+                  <div class="range-header">
+                    <label class="control-label" for="focus_absolute"
+                      >Foco Manual</label
+                    >
+                    <span class="range-value" id="val-focus_absolute">0</span>
+                  </div>
+                  <div class="range-wrapper">
+                    <input
+                      type="range"
+                      id="focus_absolute"
+                      class="range-input"
+                      min="0"
+                      max="255"
+                      value="0"
+                      data-control="focus_absolute"
+                    />
+                    <button
+                      class="btn-icon"
+                      data-action="reset"
+                      data-control="focus_absolute"
+                      aria-label="Resetar Foco Manual"
+                    >
+                      <svg
+                        viewBox="0 0 24 24"
+                        width="12"
+                        height="12"
+                        stroke="currentColor"
+                        stroke-width="2.5"
+                        fill="none"
+                      >
+                        <path
+                          d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"
+                        />
+                        <path d="M3 3v5h5" />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="card-divider"></div>
+
+                <div class="control-row">
+                  <label class="control-label" for="white_balance_automatic"
+                    >Balanço de Branco Automático</label
+                  >
+                  <div class="toggle-group">
+                    <input
+                      type="checkbox"
+                      id="white_balance_automatic"
+                      class="toggle-input"
+                      data-control="white_balance_automatic"
+                      checked
+                    />
+                    <label
+                      for="white_balance_automatic"
+                      class="toggle-switch"
+                    ></label>
+                    <button
+                      class="btn-icon"
+                      data-action="reset"
+                      data-control="white_balance_automatic"
+                      aria-label="Resetar Balanço de Branco"
+                    >
+                      <svg
+                        viewBox="0 0 24 24"
+                        width="12"
+                        height="12"
+                        stroke="currentColor"
+                        stroke-width="2.5"
+                        fill="none"
+                      >
+                        <path
+                          d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"
+                        />
+                        <path d="M3 3v5h5" />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+
+                <div
+                  class="control-row range-row"
+                  id="row-white_balance_temperature"
+                >
+                  <div class="range-header">
+                    <label class="control-label" for="white_balance_temperature"
+                      >Temperatura de Cor Manual</label
+                    >
+                    <span class="range-value" id="val-white_balance_temperature"
+                      >4500 K</span
+                    >
+                  </div>
+                  <div class="range-wrapper">
+                    <input
+                      type="range"
+                      id="white_balance_temperature"
+                      class="range-input"
+                      min="2800"
+                      max="6500"
+                      step="50"
+                      value="4500"
+                      data-control="white_balance_temperature"
+                    />
+                    <button
+                      class="btn-icon"
+                      data-action="reset"
+                      data-control="white_balance_temperature"
+                      aria-label="Resetar Temperatura da Cor"
+                    >
+                      <svg
+                        viewBox="0 0 24 24"
+                        width="12"
+                        height="12"
+                        stroke="currentColor"
+                        stroke-width="2.5"
+                        fill="none"
+                      >
+                        <path
+                          d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"
+                        />
+                        <path d="M3 3v5h5" />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
-            <div class="control-row range-row" id="row-focus_absolute">
-              <div class="range-header">
-                <label class="control-label" for="focus_absolute"
-                  >Foco Manual</label
-                >
-                <span class="range-value" id="val-focus_absolute">0</span>
-              </div>
-              <div class="range-wrapper">
-                <input
-                  type="range"
-                  id="focus_absolute"
-                  class="range-input"
-                  min="0"
-                  max="255"
-                  value="0"
-                  data-control="focus_absolute"
-                />
-                <button
-                  class="btn-icon"
-                  data-action="reset"
-                  data-control="focus_absolute"
-                  aria-label="Resetar Foco Manual"
-                >
-                  ↺
-                </button>
-              </div>
-            </div>
-            <div class="control-row">
-              <label class="control-label" for="white_balance_automatic"
-                >Balanço de Branco Automático</label
-              >
-              <div class="toggle-group">
-                <input
-                  type="checkbox"
-                  id="white_balance_automatic"
-                  class="toggle-input"
-                  data-control="white_balance_automatic"
-                  checked
-                />
-                <label
-                  for="white_balance_automatic"
-                  class="toggle-switch"
-                ></label>
-                <button
-                  class="btn-icon"
-                  data-action="reset"
-                  data-control="white_balance_automatic"
-                  aria-label="Resetar Balanço de Branco"
-                >
-                  ↺
-                </button>
-              </div>
-            </div>
-            <div
-              class="control-row range-row"
-              id="row-white_balance_temperature"
-            >
-              <div class="range-header">
-                <label class="control-label" for="white_balance_temperature"
-                  >Temperatura de Cor Manual</label
-                >
-                <span class="range-value" id="val-white_balance_temperature"
-                  >4500 K</span
-                >
-              </div>
-              <div class="range-wrapper">
-                <input
-                  type="range"
-                  id="white_balance_temperature"
-                  class="range-input"
-                  min="2800"
-                  max="6500"
-                  step="50"
-                  value="4500"
-                  data-control="white_balance_temperature"
-                />
-                <button
-                  class="btn-icon"
-                  data-action="reset"
-                  data-control="white_balance_temperature"
-                  aria-label="Resetar Temperatura da Cor"
-                >
-                  ↺
-                </button>
+          </div>
+
+          <div id="tab-audio" class="tab-pane">
+            <div class="audio-container">
+              <div class="control-card audio-card">
+                <div class="card-header">
+                  <h2 class="card-title">Captação de Áudio</h2>
+                </div>
+                <div class="control-row audio-control-row">
+                  <div class="control-label-wrap">
+                    <span class="control-label">Padrão Polar do Microfone</span>
+                    <span class="control-hint"
+                      >Selecione o ângulo de abertura para os microfones
+                      embutidos</span
+                    >
+                  </div>
+                  <div class="segmented-group">
+                    <button
+                      class="btn-segmented"
+                      data-action="segmented"
+                      data-control="mic_mode"
+                      data-value="90"
+                    >
+                      90° (Direcional)
+                    </button>
+                    <button
+                      class="btn-segmented active"
+                      data-action="segmented"
+                      data-control="mic_mode"
+                      data-value="360"
+                    >
+                      360° (Omnidirecional)
+                    </button>
+                    <button
+                      class="btn-icon"
+                      data-action="reset"
+                      data-control="mic_mode"
+                      aria-label="Resetar Microfone"
+                    >
+                      <svg
+                        viewBox="0 0 24 24"
+                        width="12"
+                        height="12"
+                        stroke="currentColor"
+                        stroke-width="2.5"
+                        fill="none"
+                      >
+                        <path
+                          d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"
+                        />
+                        <path d="M3 3v5h5" />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="audio-modes-info">
+                  <div class="audio-mode-box">
+                    <span class="mode-tag">Modo 90°</span>
+                    <p>
+                      Focado na sua frente. Reduz ruídos ambientes laterais e
+                      traseiros, ideal para reuniões individuais.
+                    </p>
+                  </div>
+                  <div class="audio-mode-box">
+                    <span class="mode-tag">Modo 360°</span>
+                    <p>
+                      Captação circular em todo o ambiente, ideal para salas de
+                      reunião com múltiplos participantes.
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
-          </fieldset>
+          </div>
+
           <button class="btn btn-reset-all" data-action="reset-all">
             Restaurar Todos os Padrões
           </button>
         </section>
+
         <footer class="app-footer">
-          <span>Anker C200 Control • Rosso Corsa Edition</span>
+          <span>Anker C200 Control</span>
         </footer>
       </main>
     </div>
+
     <script src="./js/script.js"></script>
+    <script>
+      document.querySelectorAll(".tab-btn").forEach((button) => {
+        button.addEventListener("click", () => {
+          const tabId = button.dataset.tab;
+          document
+            .querySelectorAll(".tab-btn")
+            .forEach((btn) => btn.classList.remove("active"));
+          document
+            .querySelectorAll(".tab-pane")
+            .forEach((pane) => pane.classList.remove("active"));
+          button.classList.add("active");
+          document.getElementById(tabId)?.classList.add("active");
+        });
+      });
+    </script>
   </body>
 </html>

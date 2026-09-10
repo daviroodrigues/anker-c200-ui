@@ -1,6 +1,6 @@
 {
-  "productName": "Anker PowerConf C200 UI",
-  "version": "0.1.0",
+  "productName": "anker-c200-ui",
+  "version": "1.0.0",
   "identifier": "com.anker.c200",
   "build": {
     "frontendDist": "../ui"
@@ -21,7 +21,7 @@
   },
   "bundle": {
     "active": true,
-    "targets": ["deb"],
+    "targets": ["deb", "appimage"],
     "icon": [
       "icons/32x32.png",
       "icons/64x64.png",
